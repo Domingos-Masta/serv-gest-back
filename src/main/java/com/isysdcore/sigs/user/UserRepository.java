@@ -6,6 +6,7 @@
 package com.isysdcore.sigs.user;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -21,6 +22,7 @@ public interface UserRepository extends MongoRepository<User, Long>
 
     public Object findByEmail(String email);
 
+    @Query("{ 'email' : ?0 }")
     public User findByCred(String email);
 
 }

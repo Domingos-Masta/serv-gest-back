@@ -3,15 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.isysdcore.sigs.service_type;
+package com.isysdcore.sigs.billing;
 
-import com.isysdcore.sigs.service.Service;
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -23,11 +20,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * @author domingos.fernando
  */
 @Entity
-@Document("ServiceType")
+@Document("Billing")
 @Data
 @EqualsAndHashCode
 @ToString
-public class ServiceType implements Serializable
+public class Billing implements Serializable
 {
 
     @Id
@@ -40,8 +37,5 @@ public class ServiceType implements Serializable
     @NotNull
     @Column(name = "description")
     private String description;
-
-    @OneToMany(mappedBy = "serviceType")
-    private Collection<Service> services;
 
 }

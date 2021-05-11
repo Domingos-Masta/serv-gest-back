@@ -5,6 +5,7 @@
  */
 package com.isysdcore.sigs.user;
 
+import com.isysdcore.sigs.payment.Payment;
 import com.isysdcore.sigs.role.Role;
 import com.isysdcore.sigs.util.UniqueEmail;
 import java.io.Serializable;
@@ -14,6 +15,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -64,6 +66,9 @@ public class User implements Serializable, UserDetails
     @ManyToOne
     @JoinColumn(name = "role")
     private Role role;
+
+    @OneToMany(mappedBy = "operator")
+    private Collection<Payment> payments;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities()

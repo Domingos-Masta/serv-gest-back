@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.isysdcore.sigs.service_type;
+package com.isysdcore.sigs.provider;
 
 import com.isysdcore.sigs.service.Service;
 import java.io.Serializable;
@@ -23,11 +23,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * @author domingos.fernando
  */
 @Entity
-@Document("ServiceType")
+@Document("Provider")
 @Data
 @EqualsAndHashCode
 @ToString
-public class ServiceType implements Serializable
+public class Provider implements Serializable
 {
 
     @Id
@@ -38,10 +38,14 @@ public class ServiceType implements Serializable
     private String name;
 
     @NotNull
-    @Column(name = "description")
+    @Column(name = "email", unique = true)
+    private String email;
+
+    @NotNull
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
-    @OneToMany(mappedBy = "serviceType")
+    @OneToMany(mappedBy = "provider")
     private Collection<Service> services;
 
 }

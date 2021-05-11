@@ -41,8 +41,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
         "/v2/api-docs",
         "/v3/api-docs",
         "/v3/api-docs/swagger-config",
-        "/sigpape-v2-docs.html",
-        "/sigcpape/v1/api/file/showdirect",
+        "/sigs-v2-docs.html",
+        "/sigs/v1/api/file/showdirect",
         "/swagger-ui.html",
         "/swagger-resources",
         "/swagger-resources/**",
@@ -60,29 +60,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
         "PELOURO_ADMIN",
         "EDIT",
         "P_FOCAIS",
-        "VIEW",
-        "USER"
-    };
-    private static final String[] ADMIN_AUTHORITIES = {
-        "ADMIN",
-        "PELOURO_ADMIN",
-        "EDIT",
-        "P_FOCAIS"
-    };
-    private static final String[] PELOURO_AUTHORITIES = {
-        "PELOURO_ADMIN",
-        "EDIT",
-        "VIEW",
-        "P_FOCAIS",
-        "USER"
-    };
-    private static final String[] EDIT_AUTHORITIES = {
-        "EDIT",
-        "P_FOCAIS",
-        "VIEW",
-        "USER"
-    };
-    private static final String[] VIEW_AUTHORITIES = {
         "VIEW",
         "USER"
     };
@@ -113,13 +90,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
             authorizeRequests()
             .antMatchers(AUTH_WHITELIST).permitAll()
             .antMatchers(HttpMethod.POST, Constants.DEFAULT_APP_URL_BASE + Constants.DEFAULT_APP_API_VERSION + Constants.APP_NAME + "/auth/login").permitAll()
-            .antMatchers(HttpMethod.POST, Constants.DEFAULT_APP_URL_BASE + Constants.DEFAULT_APP_API_VERSION + Constants.APP_NAME + "/auth/signup").permitAll()
             //
-            .antMatchers(HttpMethod.GET, Constants.DEFAULT_APP_URL_BASE + Constants.DEFAULT_APP_API_VERSION + Constants.APP_NAME + "/**").hasAnyAuthority(ALL_AUTHORITIES)
+            .antMatchers(Constants.DEFAULT_APP_URL_BASE + Constants.DEFAULT_APP_API_VERSION + Constants.APP_NAME + "/**").hasAnyAuthority(ALL_AUTHORITIES)
             //
-            .antMatchers(HttpMethod.POST, Constants.DEFAULT_APP_URL_BASE + Constants.DEFAULT_APP_API_VERSION + Constants.APP_NAME + "/**").hasAnyAuthority(ADMIN_AUTHORITIES)
-            .antMatchers(HttpMethod.PUT, Constants.DEFAULT_APP_URL_BASE + Constants.DEFAULT_APP_API_VERSION + Constants.APP_NAME + "/**").hasAnyAuthority(ADMIN_AUTHORITIES)
-            .antMatchers(HttpMethod.DELETE, Constants.DEFAULT_APP_URL_BASE + Constants.DEFAULT_APP_API_VERSION + Constants.APP_NAME + "/**").hasAnyAuthority(ADMIN_AUTHORITIES)
+            .antMatchers(HttpMethod.POST, Constants.DEFAULT_APP_URL_BASE + Constants.DEFAULT_APP_API_VERSION + Constants.APP_NAME + "/**").authenticated()
             //
             .and()
             .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
