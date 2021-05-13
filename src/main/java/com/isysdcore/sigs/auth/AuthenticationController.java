@@ -70,6 +70,7 @@ public class AuthenticationController implements Serializable
         if (null == userLoginDTO.getEmail() || userLoginDTO.getEmail().isEmpty()) {
             return new ResponseEntity<>("User email or phone is required", HttpStatus.BAD_REQUEST);
         }
+
         //set database parameter
         User currentUser = userRepository.findByCred(userLoginDTO.getEmail());
         if (null == currentUser || !currentUser.getEnabled()) {
@@ -144,6 +145,7 @@ public class AuthenticationController implements Serializable
     @PostMapping("/auth/signup")
     public ResponseEntity<?> signUp(@RequestBody User user)
     {
+        user.setEnabled(true);
         user.setPassword(new PasswordEncoder().getPasswordEncoder().encode(user.getPassword()));
         EntityModel<User> entityModel = assembler.toModel(userRepository.save(user));
 

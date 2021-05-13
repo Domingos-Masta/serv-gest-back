@@ -26,7 +26,7 @@ import org.springframework.hateoas.server.core.Relation;
  * @author domingos.fernando
  */
 @Entity
-@Table(name = "Roles")
+@Table(name = "roles")
 @Relation(value = "role", collectionRelation = "roleList")
 @Data
 @EqualsAndHashCode
@@ -48,7 +48,7 @@ public class Role implements Serializable
 
     public Role(Long id)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.id = id;
     }
 
 }

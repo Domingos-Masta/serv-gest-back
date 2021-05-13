@@ -5,7 +5,7 @@
  */
 package com.isysdcore.sigs.billing;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
 /**
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
  * @author domingos.fernando
  */
 @Component
-public interface BillingRepository extends MongoRepository<Billing, String>
+public interface BillingRepository extends JpaRepository<Billing, Long>
 {
 
 }

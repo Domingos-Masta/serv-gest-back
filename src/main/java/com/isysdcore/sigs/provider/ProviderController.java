@@ -54,7 +54,7 @@ public class ProviderController
     }
 
     @GetMapping("/provider/{id}")
-    public EntityModel<Provider> findById(@PathVariable(value = "id") String id)
+    public EntityModel<Provider> findById(@PathVariable(value = "id") Long id)
     {
         Provider provider = repository.findById(id) //
             .orElseThrow(() -> new EntityNotFoundException(new Provider(), id));
@@ -74,7 +74,7 @@ public class ProviderController
     }
 
     @PutMapping("/provider/{id}")
-    public ResponseEntity<?> update(@RequestBody Provider newProvider, @PathVariable String id)
+    public ResponseEntity<?> update(@RequestBody Provider newProvider, @PathVariable Long id)
     {
         Provider updatedCategory = repository.findById(id) //
             .map(provider
@@ -98,7 +98,7 @@ public class ProviderController
     }
 
     @DeleteMapping("/provider/{id}")
-    public ResponseEntity<?> delete(@PathVariable String id)
+    public ResponseEntity<?> delete(@PathVariable Long id)
     {
         repository.deleteById(id);
 

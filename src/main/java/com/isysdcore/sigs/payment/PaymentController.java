@@ -57,7 +57,7 @@ public class PaymentController
     }
 
     @GetMapping("/payment/{id}")
-    public EntityModel<Payment> findById(@PathVariable(value = "id") String id)
+    public EntityModel<Payment> findById(@PathVariable(value = "id") Long id)
     {
         Payment payment = repository.findById(id) //
             .orElseThrow(() -> new EntityNotFoundException(new Payment(), id));
@@ -77,7 +77,7 @@ public class PaymentController
     }
 
     @PutMapping("/payment/{id}")
-    public ResponseEntity<?> update(@RequestBody Payment newPayment, @PathVariable String id)
+    public ResponseEntity<?> update(@RequestBody Payment newPayment, @PathVariable Long id)
     {
         Payment updatedCategory = repository.findById(id) //
             .map(payment
@@ -99,7 +99,7 @@ public class PaymentController
     }
 
     @DeleteMapping("/payment/{id}")
-    public ResponseEntity<?> delete(@PathVariable String id)
+    public ResponseEntity<?> delete(@PathVariable Long id)
     {
         repository.deleteById(id);
 

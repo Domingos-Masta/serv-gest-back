@@ -54,7 +54,7 @@ public class ClientProfileController
     }
 
     @GetMapping("/clientProfile/{id}")
-    public EntityModel<ClientProfile> findById(@PathVariable(value = "id") String id)
+    public EntityModel<ClientProfile> findById(@PathVariable(value = "id") Long id)
     {
         ClientProfile clientProfile = repository.findById(id) //
             .orElseThrow(() -> new EntityNotFoundException(new ClientProfile(), id));
@@ -74,7 +74,7 @@ public class ClientProfileController
     }
 
     @PutMapping("/clientProfile/{id}")
-    public ResponseEntity<?> update(@RequestBody ClientProfile newClientProfile, @PathVariable String id)
+    public ResponseEntity<?> update(@RequestBody ClientProfile newClientProfile, @PathVariable Long id)
     {
         ClientProfile updatedCategory = repository.findById(id) //
             .map(clientProfile
@@ -98,7 +98,7 @@ public class ClientProfileController
     }
 
     @DeleteMapping("/clientProfile/{id}")
-    public ResponseEntity<?> delete(@PathVariable String id)
+    public ResponseEntity<?> delete(@PathVariable Long id)
     {
         repository.deleteById(id);
 

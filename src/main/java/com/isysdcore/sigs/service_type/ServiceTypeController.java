@@ -54,7 +54,7 @@ public class ServiceTypeController
     }
 
     @GetMapping("/serviceType/{id}")
-    public EntityModel<ServiceType> findById(@PathVariable(value = "id") String id)
+    public EntityModel<ServiceType> findById(@PathVariable(value = "id") Long id)
     {
         ServiceType serviceType = repository.findById(id) //
             .orElseThrow(() -> new EntityNotFoundException(new ServiceType(), id));
@@ -74,7 +74,7 @@ public class ServiceTypeController
     }
 
     @PutMapping("/serviceType/{id}")
-    public ResponseEntity<?> update(@RequestBody ServiceType newServiceType, @PathVariable String id)
+    public ResponseEntity<?> update(@RequestBody ServiceType newServiceType, @PathVariable Long id)
     {
         ServiceType updatedCategory = repository.findById(id) //
             .map(serviceType
@@ -98,7 +98,7 @@ public class ServiceTypeController
     }
 
     @DeleteMapping("/serviceType/{id}")
-    public ResponseEntity<?> delete(@PathVariable String id)
+    public ResponseEntity<?> delete(@PathVariable Long id)
     {
         repository.deleteById(id);
 

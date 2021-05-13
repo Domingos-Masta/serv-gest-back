@@ -7,28 +7,33 @@ package com.isysdcore.sigs.client_profile;
 
 import com.isysdcore.sigs.client.Client;
 import com.isysdcore.sigs.payment.Payment;
+import com.isysdcore.sigs.service.Service;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  *
  * @author domingos.fernando
  */
 @Entity
-@Document("ClientProfile")
+//@Document("ClientProfile")
+@Table(name = "client_profiles")
 @Data
 @EqualsAndHashCode
 @ToString
@@ -36,7 +41,8 @@ public class ClientProfile implements Serializable
 {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @NotNull
     @Column(name = "name")
@@ -47,28 +53,32 @@ public class ClientProfile implements Serializable
     private String description;
 
     @NotNull
-    @Column(name = "startedAt")
-    private Date startedAt;
+    @Column(name = "started_at")
+    private Date started_at;
 
     @NotNull
-    @Column(name = "endedAt")
-    private Date endedAt;
+    @Column(name = "ended_at")
+    private Date ended_at;
 
     @NotNull
-    @Column(name = "updatedAt")
+    @Column(name = "updated_at")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date updatedAt;
+    private Date updated_at;
 
     @NotNull
-    @Column(name = "createdAt")
+    @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
+    private Date created_at;
+
+    @ManyToOne
+    @JoinColumn(name = "service")
+    private Service service;
 
     @ManyToOne
     @JoinColumn(name = "client")
     private Client client;
 
-    @OneToOne(mappedBy = "fkClientProfile")
-    private Payment payment;
+    @OneToMany(mappedBy = "clientProfile")
+    private Collection<Payment> payments;
 
 }

@@ -5,12 +5,7 @@
  */
 package com.isysdcore.sigs.client;
 
-import com.isysdcore.sigs.client_profile.*;
-import com.isysdcore.sigs.payment.*;
-import com.isysdcore.sigs.provider.*;
-import com.isysdcore.sigs.service.*;
-import com.isysdcore.sigs.service_type.*;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
 /**
@@ -18,7 +13,7 @@ import org.springframework.stereotype.Component;
  * @author domingos.fernando
  */
 @Component
-public interface ClientRepository extends MongoRepository<Client, String>
+public interface ClientRepository extends JpaRepository<Client, Long>
 {
 
 }

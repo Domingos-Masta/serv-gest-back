@@ -90,10 +90,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
             authorizeRequests()
             .antMatchers(AUTH_WHITELIST).permitAll()
             .antMatchers(HttpMethod.POST, Constants.DEFAULT_APP_URL_BASE + Constants.DEFAULT_APP_API_VERSION + Constants.APP_NAME + "/auth/login").permitAll()
+            .antMatchers(HttpMethod.POST, Constants.DEFAULT_APP_URL_BASE + Constants.DEFAULT_APP_API_VERSION + Constants.APP_NAME + "/auth/signup").permitAll()
             //
             .antMatchers(Constants.DEFAULT_APP_URL_BASE + Constants.DEFAULT_APP_API_VERSION + Constants.APP_NAME + "/**").hasAnyAuthority(ALL_AUTHORITIES)
             //
-            .antMatchers(HttpMethod.POST, Constants.DEFAULT_APP_URL_BASE + Constants.DEFAULT_APP_API_VERSION + Constants.APP_NAME + "/**").authenticated()
+            .antMatchers(Constants.DEFAULT_APP_URL_BASE + Constants.DEFAULT_APP_API_VERSION + Constants.APP_NAME + "/**").authenticated()
             //
             .and()
             .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()

@@ -5,13 +5,18 @@
  */
 package com.isysdcore.sigs.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.isysdcore.sigs.payment.Payment;
 import com.isysdcore.sigs.role.Role;
 import com.isysdcore.sigs.util.UniqueEmail;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,6 +24,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -32,39 +38,50 @@ import org.springframework.security.core.userdetails.UserDetails;
  * @author domingos.fernando
  */
 @Entity
-@Table(name = "Users")
+@Table(name = "users")
 @Relation(value = "user", collectionRelation = "userList")
 @Data
 @EqualsAndHashCode
 @ToString
+@JsonIgnoreProperties(value = "password", allowSetters = true)
 public class User implements Serializable, UserDetails
 {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @UniqueEmail
-    @Column(name = "email", unique = true)
+    @NotNull
+    @NotEmpty
+    @UniqueEmail(message = "Email ja registrado")
+    @Size(max = 255)
+    @Basic(optional = false)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
+    @NotNull
     @NotEmpty
     private String name;
 
+    @NotNull
     @NotEmpty
     @NotBlank(message = "Phone is mandatory")
+    @Basic(optional = false)
+    @Size(max = 255)
     @Column(name = "phone", unique = true)
     private String phone;
 
+    @NotNull
     @NotEmpty
     @Column(name = "password")
     private String password;
 
     @Size(max = 10)
-    @Column(name = "enabled", columnDefinition = "boolean default true")
+    @Column(name = "enabled", columnDefinition = "Boolean default true")
     private Boolean enabled;
 
     @ManyToOne
-    @JoinColumn(name = "role")
+    @JoinColumn(name = "fk_role")
     private Role role;
 
     @OneToMany(mappedBy = "operator")
@@ -73,7 +90,7 @@ public class User implements Serializable, UserDetails
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new ArrayList<>();
     }
 
     @Override
@@ -85,19 +102,19 @@ public class User implements Serializable, UserDetails
     @Override
     public boolean isAccountNonExpired()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return true;
     }
 
     @Override

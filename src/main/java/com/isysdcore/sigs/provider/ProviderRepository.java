@@ -5,9 +5,7 @@
  */
 package com.isysdcore.sigs.provider;
 
-import com.isysdcore.sigs.service.*;
-import com.isysdcore.sigs.service_type.*;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
 /**
@@ -15,7 +13,7 @@ import org.springframework.stereotype.Component;
  * @author domingos.fernando
  */
 @Component
-public interface ProviderRepository extends MongoRepository<Provider, String>
+public interface ProviderRepository extends JpaRepository<Provider, Long>
 {
 
 }

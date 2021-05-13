@@ -5,34 +5,33 @@
  */
 package com.isysdcore.sigs.payment;
 
-import com.isysdcore.sigs.client.Client;
 import com.isysdcore.sigs.client_profile.ClientProfile;
-import com.isysdcore.sigs.service.Service;
 import com.isysdcore.sigs.user.User;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  *
  * @author domingos.fernando
  */
 @Entity
-@Document("Payment")
+//@Document("Payment")
+@Table(name = "payments")
 @Data
 @EqualsAndHashCode
 @ToString
@@ -40,7 +39,8 @@ public class Payment implements Serializable
 {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @NotNull
     @Column(name = "ammount")
@@ -55,7 +55,7 @@ public class Payment implements Serializable
     private Integer quantity;
 
     @NotNull
-    @Column(name = "payedAt")
+    @Column(name = "payed_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date payedAt;
 
@@ -64,20 +64,12 @@ public class Payment implements Serializable
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "client")
-    private Client client;
+    @JoinColumn(name = "fk_client_profile")
+    private ClientProfile clientProfile;
 
     @NotNull
-    @Column(name = "paymentStatus")
+    @Column(name = "payment_status")
     private String paymentStatus;
-
-    @ManyToOne
-    @JoinColumn(name = "service")
-    private Service service;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fkClientProfile")
-    private ClientProfile fkClientProfile;
 
     @ManyToOne
     @JoinColumn(name = "operator")

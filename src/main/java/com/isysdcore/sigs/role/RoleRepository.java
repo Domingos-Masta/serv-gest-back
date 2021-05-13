@@ -5,13 +5,13 @@
  */
 package com.isysdcore.sigs.role;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  *
  * @author domingos.fernando
  */
-public interface RoleRepository extends MongoRepository<Role, Long>
+public interface RoleRepository extends JpaRepository<Role, Long>
 {
 
 }

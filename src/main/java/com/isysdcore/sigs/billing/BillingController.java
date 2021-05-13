@@ -54,7 +54,7 @@ public class BillingController
     }
 
     @GetMapping("/billing/{id}")
-    public EntityModel<Billing> findById(@PathVariable(value = "id") String id)
+    public EntityModel<Billing> findById(@PathVariable(value = "id") Long id)
     {
         Billing billing = repository.findById(id) //
             .orElseThrow(() -> new EntityNotFoundException(new Billing(), id));
@@ -74,7 +74,7 @@ public class BillingController
     }
 
     @PutMapping("/billing/{id}")
-    public ResponseEntity<?> update(@RequestBody Billing newBilling, @PathVariable String id)
+    public ResponseEntity<?> update(@RequestBody Billing newBilling, @PathVariable Long id)
     {
         Billing updatedCategory = repository.findById(id) //
             .map(billing
@@ -98,7 +98,7 @@ public class BillingController
     }
 
     @DeleteMapping("/billing/{id}")
-    public ResponseEntity<?> delete(@PathVariable String id)
+    public ResponseEntity<?> delete(@PathVariable Long id)
     {
         repository.deleteById(id);
 

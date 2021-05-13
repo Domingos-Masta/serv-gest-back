@@ -5,7 +5,7 @@
  */
 package com.isysdcore.sigs.client_profile;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
 /**
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
  * @author domingos.fernando
  */
 @Component
-public interface ClientProfileRepository extends MongoRepository<ClientProfile, String>
+public interface ClientProfileRepository extends JpaRepository<ClientProfile, Long>
 {
 
 }

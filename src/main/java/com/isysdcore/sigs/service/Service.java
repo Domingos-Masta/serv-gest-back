@@ -13,22 +13,25 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  *
  * @author domingos.fernando
  */
 @Entity
-@Document("Service")
+//@Document("Service")
+@Table(name = "services")
 @Data
 @EqualsAndHashCode
 @ToString
@@ -36,7 +39,8 @@ public class Service implements Serializable
 {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @NotNull
     @Column(name = "name")
@@ -47,7 +51,7 @@ public class Service implements Serializable
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "serviceType")
+    @JoinColumn(name = "service_type")
     private ServiceType serviceType;
 
     @NotNull
@@ -59,10 +63,10 @@ public class Service implements Serializable
     private Provider provider;
 
     @ManyToOne
-    @JoinColumn(name = "parentService")
+    @JoinColumn(name = "parent_service")
     private Service parentService;
 
-    @OneToMany(mappedBy = "service")
+    @OneToMany(mappedBy = "parentService")
     private Collection<Service> childServices;
 
     @OneToMany(mappedBy = "service")

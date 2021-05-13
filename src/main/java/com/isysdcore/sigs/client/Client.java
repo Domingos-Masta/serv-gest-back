@@ -6,28 +6,30 @@
 package com.isysdcore.sigs.client;
 
 import com.isysdcore.sigs.client_profile.ClientProfile;
-import com.isysdcore.sigs.payment.Payment;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  *
  * @author domingos.fernando
  */
 @Entity
-@Document("Client")
+//@Document("Client")
+@Table(name = "clients")
 @Data
 @EqualsAndHashCode
 @ToString
@@ -35,7 +37,8 @@ public class Client implements Serializable
 {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @NotNull
     @Column(name = "name")
@@ -59,8 +62,5 @@ public class Client implements Serializable
 
     @OneToMany(mappedBy = "client")
     private Collection<ClientProfile> clientProfiles;
-
-    @OneToMany(mappedBy = "clientProfile")
-    private Collection<Payment> payments;
 
 }

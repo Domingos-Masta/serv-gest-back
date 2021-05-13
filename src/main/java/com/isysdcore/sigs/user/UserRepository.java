@@ -5,15 +5,15 @@
  */
 package com.isysdcore.sigs.user;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.mongodb.repository.Query;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author domingos.fernando
  */
-public interface UserRepository extends MongoRepository<User, Long>
+public interface UserRepository extends JpaRepository<User, Long>
 {
 
     @Transactional(timeout = 10)
@@ -22,7 +22,7 @@ public interface UserRepository extends MongoRepository<User, Long>
 
     public Object findByEmail(String email);
 
-    @Query("{ 'email' : ?0 }")
+    @Query("SELECT u FROM User u WHERE u.email = ?1 OR u.phone = ?1")
     public User findByCred(String email);
 
 }

@@ -5,10 +5,7 @@
  */
 package com.isysdcore.sigs.payment;
 
-import com.isysdcore.sigs.provider.*;
-import com.isysdcore.sigs.service.*;
-import com.isysdcore.sigs.service_type.*;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
 /**
@@ -16,7 +13,7 @@ import org.springframework.stereotype.Component;
  * @author domingos.fernando
  */
 @Component
-public interface PaymentRepository extends MongoRepository<Payment, String>
+public interface PaymentRepository extends JpaRepository<Payment, Long>
 {
 
 }

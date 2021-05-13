@@ -54,7 +54,7 @@ public class ClientController
     }
 
     @GetMapping("/client/{id}")
-    public EntityModel<Client> findById(@PathVariable(value = "id") String id)
+    public EntityModel<Client> findById(@PathVariable(value = "id") Long id)
     {
         Client client = repository.findById(id) //
             .orElseThrow(() -> new EntityNotFoundException(new Client(), id));
@@ -74,7 +74,7 @@ public class ClientController
     }
 
     @PutMapping("/client/{id}")
-    public ResponseEntity<?> update(@RequestBody Client newClient, @PathVariable String id)
+    public ResponseEntity<?> update(@RequestBody Client newClient, @PathVariable Long id)
     {
         Client updatedCategory = repository.findById(id) //
             .map(client
@@ -98,7 +98,7 @@ public class ClientController
     }
 
     @DeleteMapping("/client/{id}")
-    public ResponseEntity<?> delete(@PathVariable String id)
+    public ResponseEntity<?> delete(@PathVariable Long id)
     {
         repository.deleteById(id);
 
